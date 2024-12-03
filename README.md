@@ -1,4 +1,4 @@
-# <font color='green'>**Stocky**</font>
+<h1 style="color: green; font-weight: bold;">Stocky</h1>
 
 **A Simple Stock Market Data Fetcher**
 --------------------------------------
