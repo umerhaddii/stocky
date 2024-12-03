@@ -91,7 +91,7 @@ st.sidebar.caption(
         <div style='display: flex; align-items: center;'>
             <a href = 'https://www.linkedin.com/in/umerhaddii'><img src='{linkedin}' style='width: 35px; height: 35px; margin-right: 25px;'></a>
             <a href = 'https://www.kaggle.com/umerhaddii'><img src='{kaggle}' style='width: 28px; height: 28px; margin-right: 25px;'></a>
-            <a href = 'www.youtube.com/@umerhaddii007?sub_confirmation=1'><img src='{share}' style='width: 28px; height: 28px; margin-right: 25px;'></a>
+            <a href = 'www.youtube.com/@umerhaddii007'><img src='{share}' style='width: 28px; height: 28px; margin-right: 25px;'></a>
             
         </div>
         """,
