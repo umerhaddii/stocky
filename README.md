@@ -1,4 +1,4 @@
-<h1 style="color: green; font-weight: bold;">Stocky</h1>
+<h1 style="color: #28a745; font-weight: bold;">Stocky</h1>
 
 **A Simple Stock Market Data Fetcher**
 --------------------------------------
