@@ -1,4 +1,4 @@
-<strong style="color: #28a745;">Stocky</strong>
+# stocky
 
 
 **A Simple Stock Market Data Fetcher**
