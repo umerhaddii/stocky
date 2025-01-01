@@ -30,11 +30,11 @@ st.markdown("")
 # Button 2: Start Date with manual input
 col1, col2 = st.columns(2)
 with col1:
-    start_date_input = st.text_input("Start Date (YYYY-MM-DD)", value="2007-01-01")
+    start_date_input = st.text_input("Start Date (YYYY-MM-DD)", value="2000-01-01")
 
 # Button 3: End date with manual input
 with col2:
-    end_date_input = st.text_input("End Date (YYYY-MM-DD)", value="2024-12-01")
+    end_date_input = st.text_input("End Date (YYYY-MM-DD)", value="2025-01-01")
 
 try:
     start_date = dt.datetime.strptime(start_date_input, "%Y-%m-%d").date()
