@@ -6,24 +6,35 @@ import datetime as dt
 
 
 st.title("Stock Market Data Fetch")
-# st.subheader("Top 100 Companies's Stock Data")
+# st.subheader("Top 200 Companies's Stock Data")
 st.markdown("")
 
-# Placeholder for top 100 companies' ticker symbols
-top_100_tickers = [
-    "AAPL", "MSFT", "AMZN", "GOOGL", "META", "TSLA", "BRK-B", "JNJ", "JPM", "V",
-    "UNH", "XOM", "ORCL", "MA", "NVO", "COST", "HD", "PG", "NFLX", "NVDA",
-    "AVGO", "LLY", "WMT", "TSM", "BAC", "PYPL", "DIS", "CRM", "TMUS", "ABT",
-    "CVX", "PFE", "INTC", "VZ", "MRK", "KO", "PEP", "CMCSA", "TXN", "ADBE",
-    "ACN", "TMO", "ABBV", "MCD", "NEE", "SBUX", "AMGN", "DHR", "HON", "LMT",
-    "CAT", "UNP", "BA", "IBM", "CSCO", "UPS", "INTU", "MDLZ", "LOW", "SO",
-    "CVS", "T", "MS", "QCOM", "BHP", "BMY", "LIN", "RTX", "COP", "PM",
-    "AMD", "MDLX", "DE", "AMT", "D", "AMAT", "CL", "SCHW", "NOW", "EW",
-    "LRCX", "GM", "FDX", "MU", "DUK", "BKNG", "AXP", "TJX", "SGP", "ISRG"
+# Placeholder for top 200 companies' ticker symbols
+top_200_tickers = [
+    "AAPL", "NVDA", "MSFT", "GOOG", "AMZN", "2222.SR", "META", "TSLA", "AVGO", "TSM",
+    "BRK-B", "WMT", "JPM", "LLY", "V", "XOM", "MA", "UNH", "ORCL", "TCEHY",
+    "COST", "HD", "PG", "NFLX", "MC.PA", "BAC", "JNJ", "NVO", "CRM", "SAP",
+    "ABBV", "1398.HK", "ASML", "CVX", "RMS.PA", "KO", "TMUS", "WFC", "600519.SS", "MRK",
+    "005930.KS", "IHC.AE", "CSCO", "TM", "ROG.SW", "601288.SS", "MS", "NOW", "ACN", "AXP",
+    "TMO", "0941.HK", "ISRG", "NESN.SW", "0857.HK", "IBM", "LIN", "AZN", "RELIANCE.NS", "PEP",
+    "BABA", "SHEL", "MCD", "GE", "601988.SS", "AMD", "ABT", "GS", "601939.SS", "NVS",
+    "DIS", "PM", "OR.PA", "ADBE", "CAT", "QCOM", "HSBC", "TXN", "DHR", "RY",
+    "TCS.NS", "INTU", "PLTR", "VZ", "BKNG", "SIE.DE", "RTX", "CBA.AX", "PRX.AS", "T",
+    "300750.SZ", "IDEXY", "ARM", "AMAT", "DTE.DE", "SPGI", "BLK", "ANET", "SU.PA", "C",
+    "PFE", "HDB", "LOW", "FMX", "PDD", "AMGN", "SYK", "NEE", "BSX", "KKR",
+    "HON", "PGR", "UNP", "UBER", "CMCSA", "SCHW", "MUFG", "3968.HK", "UL", "TJX",
+    "COP", "ETN", "SHOP", "TTE", "AIR.PA", "BX", "BA", "SNY", "BHP", "601628.SS",
+    "SONY", "DE", "ALV.DE", "3690.HK", "0883.HK", "ADP", "CDI.PA", "FI", "MU", "LMT",
+    "PANW", "EL.PA", "APP", "GILD", "BMY", "601318.SS", "BHARTIARTL.NS", "MDT", "XIACF", "6501.T",
+    "UPS", "GEV", "UBS", "ADI", "002594.SZ", "VRTX", "CB", "MRVL", "SBUX", "MMC",
+    "CFR.SW", "6861.T", "NKE", "LRCX", "1120.SR", "ABBN.SW", "PLD", "KLAC", "6098.T", "TD",
+    "000660.KS", "601088.SS", "IBN", "CEG", "SAF.PA", "SPOT", "RIO", "TAQA.AE", "MSTR", "ENB",
+    "600900.SS", "AI.PA", "9983.T", "SMFG", "600028.SS", "APO", "MELI", "INTC", "PYPL", "BUD",
+    "SO", "D05.SI", "ELV", "RELX", "SHW", "AMT", "EQIX", "BN", "CRWD", "MO"
 ]
 
 # Button 1: Select Ticker Symbol
-selected_ticker = st.selectbox("Select Ticker Symbol", top_100_tickers)
+selected_ticker = st.selectbox("Select Ticker Symbol", top_200_tickers)
 
 st.markdown("")
 
@@ -72,7 +83,7 @@ st.sidebar.markdown(
 )
 st.sidebar.markdown("")
 st.sidebar.markdown("## About")
-st.sidebar.info("This app fetches stock market data for the top 100 companies. Select a ticker symbol,type start date and end date to view the data.")
+st.sidebar.info("This app fetches stock market data for the top 200 companies. Select a ticker symbol,type start date and end date to view the data.")
 
 
 
