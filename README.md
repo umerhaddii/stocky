@@ -12,7 +12,7 @@
 **Features**
 ------------
 * **Stock Market Data Fetching**: Stocky fetches stock market data from a reliable source and displays it in a user-friendly format.
-* **Ticker Symbol Selection**: Users can select from a list of the top 100 companies to view their stock market data.
+* **Ticker Symbol Selection**: Users can select from a list of the top 200 companies to view their stock market data.
 * **Date Range Selection**: Users can select a start date and end date to view the stock market data for a specific period.
 * **User-Friendly Interface**: The app has a simple and intuitive interface that makes it easy for users to navigate and use.
 
@@ -36,7 +36,7 @@ To install Stocky, follow these steps:
 To use Stocky, follow these steps:
 
 1. Open the app in your web browser by navigating to `http://localhost:8501`
-2. Select a ticker symbol from the list of top 100 companies
+2. Select a ticker symbol from the list of top 200 companies
 3. Select a start date and end date to view the stock market data for a specific period
 4. Click the "Fetch" button to view the stock market data
 5. Use the interactive chart to visualize the data and explore trends and patterns
