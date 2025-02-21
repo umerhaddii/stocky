@@ -7,7 +7,7 @@
 **Overview**
 ------------
 
-[Stocky](stockyy.streamlit.app) is a web application that allows users to fetch stock market data for the top 200 companies. The app provides a simple and intuitive interface for users to select a ticker symbol, start date, and end date, and then view the corresponding stock market data.
+Stocky is a web application that allows users to fetch stock market data for the top 200 companies. The app provides a simple and intuitive interface for users to select a ticker symbol, start date, and end date, and then view the corresponding stock market data.
 
 **Features**
 ------------
