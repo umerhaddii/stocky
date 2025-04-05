@@ -15,7 +15,7 @@ st.title("Stock Market Data Fetch")
 st.markdown("")
 
 # Updated tickers list
-top_300_tockers = [
+top_300_tickers = [
 "Apple",  "Microsoft",  "NVIDIA",  "Amazon", "Alphabet (Google)", "Saudi Aramco", "Meta Platforms (Facebook)", "Berkshire Hathaway", "Tesla", "TSMC", "Broadcom", "Walmart", "Eli Lilly", "Visa",
  "JPMorgan Chase", "Tencent", "UnitedHealth", "Exxon Mobil", "Mastercard", "Costco", "Procter & Gamble", "Johnson & Johnson", "Netflix", "Oracle", "Home Depot", "AbbVie", "ICBC", 
 "Coca-Cola", "SAP", "LVMH", "T-Mobile US", "Alibaba", "Novo Nordisk", "Kweichow Moutai", "Bank of America", "Nestlé", "Hermès", "ASML", "Samsung", "Chevron", "Agricultural Bank of China", 
