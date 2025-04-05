@@ -15,36 +15,31 @@ st.title("Stock Market Data Fetch")
 st.markdown("")
 
 # Updated tickers list
-top_300_tickers = [
-"Apple",  "Microsoft",  "NVIDIA",  "Amazon", "Alphabet (Google)", "Saudi Aramco", "Meta Platforms (Facebook)", "Berkshire Hathaway", "Tesla", "TSMC", "Broadcom", "Walmart", "Eli Lilly", "Visa",
- "JPMorgan Chase", "Tencent", "UnitedHealth", "Exxon Mobil", "Mastercard", "Costco", "Procter & Gamble", "Johnson & Johnson", "Netflix", "Oracle", "Home Depot", "AbbVie", "ICBC", 
-"Coca-Cola", "SAP", "LVMH", "T-Mobile US", "Alibaba", "Novo Nordisk", "Kweichow Moutai", "Bank of America", "Nestlé", "Hermès", "ASML", "Samsung", "Chevron", "Agricultural Bank of China", 
-"Roche", "International Holding Company", "China Mobile", "Philip Morris International", "Salesforce", "China Construction Bank", "Cisco", "Abbott Laboratories", "McDonald", "Bank of China", 
-"AstraZeneca", "IBM", "Toyota", "Novartis", "Linde", "Merck", "L'Oréal", "Pepsico", "Wells Fargo", "PetroChina", "Shell", "AT&T", "Reliance Industries", "HSBC", "Prosus", "Verizon", "Accenture",
- "General Electric", "Deutsche Telekom", "Palantir", "Fomento Económico Mexicano", "HDFC Bank", "Thermo Fisher Scientific", "American Express", "Intuitive Surgical", "Morgan Stanley", "Siemens", 
-"Amgen", "Intuit", "RTX", "Royal Bank Of Canada", "Commonwealth Bank", "Blackstone Group", "Inditex", "Progressive", "Walt Disney", "Unilever", "ServiceNow", "Adobe", "BYD", "CM Bank", "CATL", "Goldman Sachs", 
-"PDD Holdings (Pinduoduo)", "Xiaomi", "QUALCOMM", "Booking Holdings (Booking.com)", "Allianz SE", "Tata Consultancy Services", "AMD", "S&P Global", "Texas Instruments", "Nextera Energy", "Caterpillar", 
-"TJX Companies", "Uber", "Gilead Sciences", "Sony", "Boston Scientific", "TotalEnergies", "Stryker Corporation", "Pfizer", "Danaher", "Mitsubishi UFJ Financial", "Union Pacific Corporation", "BlackRock", 
-"Sanofi", "Airbus", "Comcast", "Charles Schwab", "Lowe's Companies", "Honeywell", "Meituan", "CNOOC", "Bharti Airtel", "Vertex Pharmaceuticals", "EssilorLuxottica", "China Life Insurance", "Ping An Insurance", 
-"Anheuser-Busch Inbev", "Deere & Company (John Deere)", "Automatic Data Processing", "Schneider Electric", "Marsh & McLennan Companies", "Bristol-Myers Squibb", "Chubb", "Fiserv", "Citigroup", "Air Liquide", 
-"ConocoPhillips", "ICICI Bank", "Al Rajhi Bank", "BHP Group", "Medtronic", "Iberdrola", "Applied Materials", "American Tower", "Spotify", "Boeing", "China Shenhua Energy", "Palo Alto Networks", "Lockheed Martin", 
-"Toronto Dominion Bank", "Safran", "Shopify", "Southern Company", "Elevance Health", "China Telecom", "Eaton", "Dior", "China Yangtze Power", "Hitachi", "TAQA", "Altria Group", "Enbridge", "Fast Retailing", 
-"Zurich Insurance Group", "MercadoLibre", "Starbucks", "Welltower", "Arm Holdings", "Duke Energy", "Compagnie Financière Richemont", "SK Hynix", "CME Group", "DBS Group", "Prologis", "Waste Management", 
-"Rio Tinto", "Intercontinental Exchange", "Keyence", "Sinopec", "AXA", "RELX", "Santander", "British American Tobacco", "Cigna", "ABB", "Intel", "Mondelez", "KKR & Co.", "McKesson", "UBS", "BNP Paribas", 
-"Nike", "Investor AB", "Sherwin-Williams", "Petrobras", "United Parcel Service", "Enel", "AIA", "HCA Healthcare", "Arthur J. Gallagher & Co.", "Analog Devices", "Sumitomo Mitsui Financial Group", "Arista Networks", 
-"Aon", "NTT (Nippon Telegraph & Telephone)", "Munich RE (Münchener Rück)", "Intesa Sanpaolo", "CVS Health", "State Bank of India", "BP", "CrowdStrike", "O'Reilly Automotive", "Nintendo", "Cintas", "Midea", "KLA", 
-"Strategy (MicroStrategy)", "London Stock Exchange", "Lam Research", "Brookfield Corporation", "Ferrari", "UniCredit", "Thomson Reuters", "Recruit", "Equinix", "AppLovin", "Colgate-Palmolive", "Chugai Pharmaceutical", 
-"Sberbank", "GE Vernova", "GlaxoSmithKline", "CSL", "Republic Services", "Bank of Communications", "Brookfield Asset Management", "Moody's", "Micron Technology", "Amphenol", "Trane Technologies", "Rolls-Royce Holdings", 
-"Banco Bilbao Vizcaya Argentaria", "Wuliangye Yibin", "Northrop Grumman", "TransDigm", "Infosys", "Postal Savings Bank of China", "MediaTek", "Vinci", "Mitsubishi Corporation", "DoorDash", "3M", "Zoetis", 
-"Atlas Copco", "Tokio Marine", "Ecolab", "Motorola Solutions", "General Dynamics", "Enterprise Products", "Williams Companies", "Parker-Hannifin", "ACWA POWER Company", "Airbnb", "Illinois Tool Works", 
-"Canadian Pacific Railway", "Fortinet", "Constellation Software", "SoftBank", "Bank of Montreal", "National Grid", "Westpac Banking", "KDDI", "NetEase", "Foxconn (Hon Hai Precision Industry)", 
-"Chipotle Mexican Grill", "Cadence Design Systems", "Bajaj Finance", "Equinor", "Bank Central Asia", "ADNOC Gas", "Regeneron Pharmaceuticals", "Itōchū Shōji", "National Australia Bank", "Southern Copper", 
-"Apollo Global Management", "Interactive Brokers", "Hindustan Unilever", "Zijin Mining", "Sea Limited", "Saudi Telecom Company", "AutoZone", "EOG Resources", "PNC Financial Services", "Canadian National Railway", 
-"Industrial Bank", "Synopsys", "ITC"
+top_200_tickers = [
+    "AAPL", "NVDA", "MSFT", "GOOG", "AMZN", "2222.SR", "META", "TSLA", "AVGO", "TSM",
+    "BRK-B", "WMT", "JPM", "LLY", "V", "XOM", "MA", "UNH", "ORCL", "TCEHY",
+    "COST", "HD", "PG", "NFLX", "MC.PA", "BAC", "JNJ", "NVO", "CRM", "SAP",
+    "ABBV", "1398.HK", "ASML", "CVX", "RMS.PA", "KO", "TMUS", "WFC", "600519.SS", "MRK",
+    "005930.KS", "IHC.AE", "CSCO", "TM", "ROG.SW", "601288.SS", "MS", "NOW", "ACN", "AXP",
+    "TMO", "0941.HK", "ISRG", "NESN.SW", "0857.HK", "IBM", "LIN", "AZN", "RELIANCE.NS", "PEP",
+    "BABA", "SHEL", "MCD", "GE", "601988.SS", "AMD", "ABT", "GS", "601939.SS", "NVS",
+    "DIS", "PM", "OR.PA", "ADBE", "CAT", "QCOM", "HSBC", "TXN", "DHR", "RY",
+    "TCS.NS", "INTU", "PLTR", "VZ", "BKNG", "SIE.DE", "RTX", "CBA.AX", "PRX.AS", "T",
+    "300750.SZ", "IDEXY", "ARM", "AMAT", "DTE.DE", "SPGI", "BLK", "ANET", "SU.PA", "C",
+    "PFE", "HDB", "LOW", "FMX", "PDD", "AMGN", "SYK", "NEE", "BSX", "KKR",
+    "HON", "PGR", "UNP", "UBER", "CMCSA", "SCHW", "MUFG", "3968.HK", "UL", "TJX",
+    "COP", "ETN", "SHOP", "TTE", "AIR.PA", "BX", "BA", "SNY", "BHP", "601628.SS",
+    "SONY", "DE", "ALV.DE", "3690.HK", "0883.HK", "ADP", "CDI.PA", "FI", "MU", "LMT",
+    "PANW", "EL.PA", "APP", "GILD", "BMY", "601318.SS", "BHARTIARTL.NS", "MDT", "XIACF", "6501.T",
+    "UPS", "GEV", "UBS", "ADI", "002594.SZ", "VRTX", "CB", "MRVL", "SBUX", "MMC",
+    "CFR.SW", "6861.T", "NKE", "LRCX", "1120.SR", "ABBN.SW", "PLD", "KLAC", "6098.T", "TD",
+    "000660.KS", "601088.SS", "IBN", "CEG", "SAF.PA", "SPOT", "RIO", "TAQA.AE", "MSTR", "ENB",
+    "600900.SS", "AI.PA", "9983.T", "SMFG", "600028.SS", "APO", "MELI", "INTC", "PYPL", "BUD",
+    "SO", "D05.SI", "ELV", "RELX", "SHW", "AMT", "EQIX", "BN", "CRWD", "MO"
 ]
 
 # Simplified ticker selection without search
-selected_ticker = st.selectbox("Select Ticker Symbol", top_300_tickers)
+selected_ticker = st.selectbox("Select Ticker Symbol", top_200_tickers)
 
 st.markdown("")
 
@@ -208,7 +203,7 @@ st.sidebar.markdown(
 )
 st.sidebar.markdown("")
 st.sidebar.markdown("## About")
-st.sidebar.info("This app fetches stock market data for the top 300 companies worldwide, including US, European, and Asian markets. Select a ticker symbol, type start date and end date to view the data.")
+st.sidebar.info("This app fetches stock market data for the top 200 companies worldwide, including US, European, and Asian markets. Select a ticker symbol, type start date and end date to view the data.")
 
 st.sidebar.markdown("")
 st.sidebar.caption(
