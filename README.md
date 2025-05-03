@@ -4,6 +4,9 @@
 **A Stock Market Data Fetcher**
 --------------------------------------
 
+![stockyy](https://github.com/user-attachments/assets/522ce8a5-c65e-499a-a5ca-19f17adb01cc)
+
+
 **Overview**
 ------------
 
