@@ -10,36 +10,56 @@ import datetime as dt
 import time
 from requests.exceptions import RequestException
 import backoff  
+import logging
 
 st.title("Stock Market Data Fetch")
 st.markdown("")
 
 # Updated tickers list
-top_200_tickers = [
-    "AAPL", "NVDA", "MSFT", "GOOG", "AMZN", "2222.SR", "META", "TSLA", "AVGO", "TSM",
-    "BRK-B", "WMT", "JPM", "LLY", "V", "XOM", "MA", "UNH", "ORCL", "TCEHY",
-    "COST", "HD", "PG", "NFLX", "MC.PA", "BAC", "JNJ", "NVO", "CRM", "SAP",
-    "ABBV", "1398.HK", "ASML", "CVX", "RMS.PA", "KO", "TMUS", "WFC", "600519.SS", "MRK",
-    "005930.KS", "IHC.AE", "CSCO", "TM", "ROG.SW", "601288.SS", "MS", "NOW", "ACN", "AXP",
-    "TMO", "0941.HK", "ISRG", "NESN.SW", "0857.HK", "IBM", "LIN", "AZN", "RELIANCE.NS", "PEP",
-    "BABA", "SHEL", "MCD", "GE", "601988.SS", "AMD", "ABT", "GS", "601939.SS", "NVS",
-    "DIS", "PM", "OR.PA", "ADBE", "CAT", "QCOM", "HSBC", "TXN", "DHR", "RY",
-    "TCS.NS", "INTU", "PLTR", "VZ", "BKNG", "SIE.DE", "RTX", "CBA.AX", "PRX.AS", "T",
-    "300750.SZ", "IDEXY", "ARM", "AMAT", "DTE.DE", "SPGI", "BLK", "ANET", "SU.PA", "C",
-    "PFE", "HDB", "LOW", "FMX", "PDD", "AMGN", "SYK", "NEE", "BSX", "KKR",
-    "HON", "PGR", "UNP", "UBER", "CMCSA", "SCHW", "MUFG", "3968.HK", "UL", "TJX",
-    "COP", "ETN", "SHOP", "TTE", "AIR.PA", "BX", "BA", "SNY", "BHP", "601628.SS",
-    "SONY", "DE", "ALV.DE", "3690.HK", "0883.HK", "ADP", "CDI.PA", "FI", "MU", "LMT",
-    "PANW", "EL.PA", "APP", "GILD", "BMY", "601318.SS", "BHARTIARTL.NS", "MDT", "XIACF", "6501.T",
-    "UPS", "GEV", "UBS", "ADI", "002594.SZ", "VRTX", "CB", "MRVL", "SBUX", "MMC",
-    "CFR.SW", "6861.T", "NKE", "LRCX", "1120.SR", "ABBN.SW", "PLD", "KLAC", "6098.T", "TD",
-    "000660.KS", "601088.SS", "IBN", "CEG", "SAF.PA", "SPOT", "RIO", "TAQA.AE", "MSTR", "ENB",
-    "600900.SS", "AI.PA", "9983.T", "SMFG", "600028.SS", "APO", "MELI", "INTC", "PYPL", "BUD",
-    "SO", "D05.SI", "ELV", "RELX", "SHW", "AMT", "EQIX", "BN", "CRWD", "MO"
+top_400_tickers = [
+    "MSFT", "AAPL", "NVDA", "AMZN", "GOOG", "2222.SR", "META", "BRK-B", "AVGO", "TSM",
+    "TSLA", "WMT", "LLY", "JPM", "V", "TCEHY", "MA", "NFLX", "XOM", "COST", "ORCL", "PG",
+    "JNJ", "UNH", "HD", "SAP", "ABBV", "1398.HK", "NVO", "BAC", "KO", "BABA", "PLTR",
+    "RMS.PA", "TMUS", "MC.PA", "NESN.SW", "ASML", "600519.SS", "PM", "ROG.SW", "CRM",
+    "601288.SS", "005930.KS", "TM", "CVX", "IHC.AE", "WFC", "OR.PA", "CSCO", "0941.HK",
+    "ABT", "NVS", "AZN", "IBM", "RELIANCE.NS", "MCD", "GE", "601939.SS", "LIN", "PRX.AS",
+    "MRK", "601988.SS", "NOW", "HSBC", "SHEL", "T", "0857.HK", "AXP", "MS", "ACN", "ISRG",
+    "HDB", "SIE.DE", "VZ", "PEP", "CBA.AX", "XIACF", "INTU", "UBER", "GS", "DTE.DE",
+    "FMX", "RTX", "RY", "IDEXY", "BKNG", "BX", "DIS", "PGR", "ADBE", "ALV.DE", "AMD",
+    "TMO", "UL", "PDD", "SPGI", "BSX", "SONY", "QCOM", "CAT", "AMGN", "SCHW", "TXN",
+    "002594.SZ", "TCS.NS", "SYK", "TJX", "BLK", "MUFG", "DHR", "3968.HK", "300750.SZ",
+    "BA", "NEE", "AIR.PA", "HON", "PFE", "SU.PA", "SNY", "EL.PA", "SPOT", "C", "BHARTIARTL.NS",
+    "DE", "UNP", "ARM", "GILD", "SHOP", "BUD", "VRTX", "CMCSA", "TTE", "LOW", "AMAT", "PANW",
+    "BHP", "ADP", "IBN", "AI.PA", "601318.SS", "601628.SS", "ETN", "6501.T", "MELI", "COP",
+    "SAF.PA", "CB", "ANET", "IBE.MC", "TD", "MMC", "LMT", "CRWD", "MDT", "GEV", "KKR",
+    "MSTR", "SAN", "0883.HK", "6861.T", "AMT", "3690.HK", "CS.PA", "APP", "CFR.SW", "1120.SR",
+    "BMY", "ENB", "FI", "RELX", "9983.T", "CME", "ZURN.SW", "MO", "SO", "ABBN.SW", "7974.T",
+    "ICE", "601088.SS", "600900.SS", "RIO", "WELL", "ADI", "4519.T", "UBS", "PLD", "APH",
+    "BNP.PA", "TAQA.AE", "SBUX", "ISP.MI", "LRCX", "BTI", "DUK", "CDI.PA", "WM", "D05.SI",
+    "KLAC", "UCG.MI", "ELV", "INVE-B.ST", "0728.HK", "000660.KS", "CI", "SMFG", "MU", "SHW",
+    "BAM", "INTC", "TT", "MCK", "ENEL.MI", "600028.SS", "MDLZ", "RR.L", "DASH", "NKE",
+    "9432.T", "MUV2.DE", "EQIX", "HCA", "CTAS", "CVS", "AJG", "CDNS", "SBIN.NS", "SE",
+    "MCO", "6098.T", "BN", "TRI", "RACE", "UPS", "FTNT", "GSK", "TDG", "LSEG.L", "1299.HK",
+    "ORLY", "CSL.AX", "BBVA", "PH", "DG.PA", "SBER.ME", "RSG", "ABNB", "CEG", "CSU.TO",
+    "APO", "000333.SZ", "RHM.F", "AON", "IBKR", "MMM", "8766.T", "INFY", "WBC.AX", "BP",
+    "ATCO-B.ST", "9984.T", "CL", "GD", "WMB", "PBR", "SNPS", "8058.T", "ECL", "NAB.AX",
+    "COF", "SCCO", "8001.T", "NGG", "ITW", "BMO", "601328.SS", "9433.T", "NOC", "ZTS",
+    "CP", "NTES", "CMG", "BA.L", "000858.SZ", "MAR", "MSI", "601658.SS", "2454.TW", "BBCA.JK",
+    "8035.T", "2317.TW", "CRH", "WDAY", "ADNOCGAS.AE", "DELL", "EPD", "PNC", "PYPL", "REGN",
+    "7011.T", "BAJFINANCE.NS", "ENR.F", "USB", "HINDUNILVR.NS", "EQNR", "CNI", "ITC.NS",
+    "DEO", "BNS", "ITUB", "601899.SS", "AZO", "HOLN.SW", "7010.SR", "RCL", "ING", "HWM",
+    "CARR", "APD", "MFG", "0981.HK", "4063.T", "2082.SR", "MRK.DE", "EOG", "EMR", "CNQ",
+    "SPG", "ROP", "SHL.DE", "TRV", "DB1.DE", "CM", "NU", "ADSK", "KMI", "601166.SS", "LICI.NS",
+    "CPRT", "LYG", "BK", "HO.PA", "JCI", "MNST", "BCS", "WES.AX", "ANZ.AX", "MBG.DE", "CPG.L",
+    "AEP", "NEM", "0388.HK", "HLT", "AFL", "ET", "ROSN.ME", "COR", "ACA.PA", "DLR", "VOLV-A.ST",
+    "AEM", "O39.SI", "SNOW", "BN.PA", "G.MI", "VOW3.DE", "SGO.PA", "8031.T", "1180.SR", "LKOH.ME",
+    "207940.KS", "2914.T", "CABK.MC", "WMMVF", "TEAM", "III.L", "MFC", "LT.NS", "DSV.VI", "CHTR",
+    "MRVL", "PAYX", "CSX", "373220.KS", "UMG.AS", "TRP", "MPLX", "GBTC", "SREN.SW", "DB", "ALL",
+    "AMX", "NWG", "PSA", "FDX", "FCX", "LNG", "BMW.DE", "LONN.SW", "MET"
 ]
 
 # Simplified ticker selection without search
-selected_ticker = st.selectbox("Select Ticker Symbol", top_200_tickers)
+selected_ticker = st.selectbox("Select Ticker Symbol", top_400_tickers)
 
 st.markdown("")
 
@@ -50,7 +70,7 @@ with col1:
 
 # Button 3: End date with manual input
 with col2:
-    end_date_input = st.text_input("End Date (YYYY-MM-DD)", value="2025-02-20")
+    end_date_input = st.text_input("End Date (YYYY-MM-DD)", value="2025-05-01")
 
 try:
     start_date = dt.datetime.strptime(start_date_input, "%Y-%m-%d").date()
@@ -76,25 +96,24 @@ def create_session():
     })
     return session
 
-def fetch_stock_data(ticker, start_date, end_date):
+# Configure logging
+logging.getLogger('yfinance').setLevel(logging.CRITICAL)
+
+def fetch_stock_data(start_date, end_date):
     try:
-        session = create_session()
-        ticker_obj = yf.Ticker(ticker, session=session)
-        
-        # Fetch data with adjusted close
-        data = ticker_obj.history(
+        # Simple data fetch with minimal parameters
+        data = yf.download(
+            tickers=selected_ticker,
             start=start_date,
             end=end_date,
-            interval="1d",
-            auto_adjust=False,  # Set to False to get both adjusted and unadjusted prices
-            actions=True
+            auto_adjust=False
         )
         
         if data is None or data.empty:
-            st.warning(f"No data available for {ticker} in the specified date range.")
+            st.warning(f"No data available for {selected_ticker}")
             return None
             
-        # Rename columns to match requirements
+        # Basic data formatting
         data = data.rename(columns={
             'Open': 'open',
             'High': 'high',
@@ -104,27 +123,16 @@ def fetch_stock_data(ticker, start_date, end_date):
             'Volume': 'volume'
         })
         
-        # Ensure all required columns are present
-        required_columns = ['open', 'high', 'low', 'close', 'adj_close', 'volume']
-        if not all(col in data.columns for col in required_columns):
-            st.warning("Retrieved data is missing required columns.")
-            return None
-        
-        # Reset index to make date a column and rename it
+        # Format dates
         data = data.reset_index()
+        data['Date'] = pd.to_datetime(data['Date']).dt.date
         data = data.rename(columns={'Date': 'date'})
         
-        # Select and reorder columns
-        data = data[['date', 'open', 'high', 'low', 'close', 'adj_close', 'volume']]
-        
-        return data
+        return data[['date', 'open', 'high', 'low', 'close', 'adj_close', 'volume']]
         
     except Exception as e:
         st.error(f"Error fetching data: {str(e)}")
         return None
-    finally:
-        if session:
-            session.close()
 
 # Add this after initial imports
 if 'data' not in st.session_state:
@@ -145,17 +153,17 @@ with col1:
                     st.error("End date must be after start date")
                 else:
                     progress_text = st.empty()
-                    progress_text.text("Initializing data fetch...")
+                    progress_text.text(f"Fetching data for {selected_ticker}...")
                     
-                    data = fetch_stock_data(selected_ticker, start_date, end_date)
+                    data = fetch_stock_data(start_date, end_date)
                     
                     if data is not None and not data.empty:
                         progress_text.empty()
                         st.session_state.data = data
                         st.session_state.last_ticker = selected_ticker
-                        st.success("Data fetched successfully!")
+                        st.success(f"Data fetched successfully for {selected_ticker}!")
                     else:
-                        st.error("Failed to fetch data. Please try again.")
+                        st.error(f"Failed to fetch data for {selected_ticker}. Please try again.")
                     progress_text.empty()
                     
             except ValueError:
@@ -191,24 +199,23 @@ if st.session_state.data is not None:
         "Download CSV",
         csv,
         file_name=f"{st.session_state.last_ticker}_{start_date}_{end_date}.csv",
-        mime="text/csv"
+        mime="text/csv",
+        type="primary" 
     )
 
 # Sidebar with additional information
 
-# Set the sidebar header with bold green text
 st.sidebar.markdown(
-    "<h1 style='color: #28a745; font-weight: bold; font-size: 48px;'>stocky</h1>", 
+    "<h1 style='color: #28a745; font-weight: bold; font-size: 60px;'>stocky</h1>", 
     unsafe_allow_html=True
 )
 st.sidebar.markdown("")
 st.sidebar.markdown("## About")
-st.sidebar.info("This app fetches stock market data for the top 200 companies worldwide, including US, European, and Asian markets. Select a ticker symbol, type start date and end date to view the data.")
+st.sidebar.info("This app fetches stock market data for the top 400 companies worldwide, including US, European, and Asian markets. Select a ticker symbol, type start date and end date to view the data.")
 
 st.sidebar.markdown("")
-st.sidebar.caption(
-    "Built by [Umer Haddii](https://www.linkedin.com/in/umerhaddii)"
-)
+st.sidebar.markdown("<h1 style='color: #00A1E8; font-weight: bold; font-size: 20px;'>Built by Umer Haddii</h1>", 
+    unsafe_allow_html=True)
 
 linkedin = "https://raw.githubusercontent.com/umerhaddii/stocky/main/images/linkedin.gif"
 kaggle = "https://raw.githubusercontent.com/umerhaddii/stocky/main/images/kaggle.gif"
