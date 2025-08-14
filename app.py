@@ -70,7 +70,7 @@ with col1:
 
 # Button 3: End date with manual input
 with col2:
-    end_date_input = st.text_input("End Date (YYYY-MM-DD)", value="2025-05-01")
+    end_date_input = st.text_input("End Date (YYYY-MM-DD)", value="2025-08-14")
 
 try:
     start_date = dt.datetime.strptime(start_date_input, "%Y-%m-%d").date()
@@ -232,3 +232,4 @@ st.sidebar.caption(
         """,
     unsafe_allow_html=True,
 )
+
